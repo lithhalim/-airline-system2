@@ -3,9 +3,9 @@
 
 
 ## 🚀 project link
-https://github.com/lithhalim/airline-system
-## how run
-![](./Manager/manager.js)
+https://github.com/lithhalim/-airline-system2
+## manegar
+![](./assest/manegar.png)
 
 ## system
 ![](./assest/system.png)
