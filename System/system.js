@@ -4,25 +4,27 @@ const { faker } = require('@faker-js/faker');
 const ioServer = require('socket.io')(PORT);
 
 
-
-
 const airlines_io = ioServer.of('/airline');
 
 airlines_io.on('connection', (socket) => {
-  socket.on('new-flight', () => {
+  socket.on('new-flight', (payload) => {
     airlines_io.emit('new-flight');
+    console.log(payload)
   });
   socket.on('took-off', Flight2);
 });
 
-airlines_io.on('connection', (socket) => {
-  socket.on('new-flight', () => {
+ioServer.on('connection', (socket) => {
+  socket.on('new-flight', (payload) => {
     Flight1();
-    airlines_io.emit('new-flight');
+    ioServer.emit('new-flight');
+    console.log(payload)
+
   });
   socket.on('Arrived', Flight3);
-  socket.on('Arrived', () => {
-    airlines_io.emit('Arrived');
+  socket.on('Arrived', (payload) => {
+    ioServer.emit('Arrived');
+    console.log(payload)
   });
 });
 

@@ -27,6 +27,7 @@ function pilot1() {
     console.log(arrived);
     //Emit arrive
     soket.emit('Arrived', arrived);
+    airline_soket.emit('Arrived', arrived);
   }, 7000);
 
 }

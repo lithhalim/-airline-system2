@@ -8,7 +8,7 @@ https://github.com/lithhalim/-airline-system2
 ![](./assest/manegar.png)
 
 ## system
-![](./assest/system.png)
+![](./assest/new%20pictutr.png)
 
 ## uml
 ![](./assest/uml.png)
