@@ -11,7 +11,7 @@ const fakeDatabase = {
   flights: {}
 };
 
-
+const id = UUID();
 const airlines_io = ioServer.of('/airline');
 
 airlines_io.on('connection', (socket) => {
@@ -25,8 +25,6 @@ airlines_io.on('connection', (socket) => {
 ioServer.on('connection', (socket) => {
   socket.on('new-flight', (payload) => {
     Flight1();
-    const id = UUID();
-    fakeDatabase.flights[id] = payload;
 
     ioServer.emit('new-flight');
     console.log(payload)
@@ -38,10 +36,15 @@ ioServer.on('connection', (socket) => {
     console.log(payload)
   });
   socket.on('get-all', () => {
-    socket.emit('flight', fakeDatabase.flights);
+
+    Object.keys(fakeDatabase.flights).forEach((id)=>{
+      socket.emit('flight',{
+        id:id,
+        payload:fakeDatabase.flights[id]
+      });
+    })
     fakeDatabase.flights = {};
   });
-
 });
 
 function Flight1() {
