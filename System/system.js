@@ -1,7 +1,15 @@
 require('dotenv').config();
 const PORT = process.env.PORT || 3020;
+//use to create fake data
 const { faker } = require('@faker-js/faker');
+//vpnnection with soketio
 const ioServer = require('socket.io')(PORT);
+const UUID = require('uuid').v4;
+
+//create fake database to save data
+const fakeDatabase = {
+  flights: {}
+};
 
 
 const airlines_io = ioServer.of('/airline');
@@ -17,6 +25,9 @@ airlines_io.on('connection', (socket) => {
 ioServer.on('connection', (socket) => {
   socket.on('new-flight', (payload) => {
     Flight1();
+    const id = UUID();
+    fakeDatabase.flights[id] = payload;
+
     ioServer.emit('new-flight');
     console.log(payload)
 
@@ -26,6 +37,11 @@ ioServer.on('connection', (socket) => {
     ioServer.emit('Arrived');
     console.log(payload)
   });
+  socket.on('get-all', () => {
+    socket.emit('flight', fakeDatabase.flights);
+    fakeDatabase.flights = {};
+  });
+
 });
 
 function Flight1() {
